@@ -6,7 +6,7 @@ This file is generated from the tracked repository tree. It is committed so
 the documentation record advances with implementation changes.
 
 - Repository: `Thetromboneman1/NeoFreeBird`
-- Default branch: `codex/lifecycle-governance-2026-08-12`
+- Default branch: `v6`
 - Implementation fingerprint: `02b899b75dbf3dd6`
 - Maintained documents: 8
 - Architecture assets: 2
