@@ -152,3 +152,10 @@ By default the IPA is rebranded in place. Pass `-o`/`--output` to write a rebran
 ```bash
 ./rebrand.sh -t --resource-pack theme.zip -o packages/Twitter-rebranded.ipa packages/NeoFreeBird-sideloaded.ipa
 ```
+
+## Fork Maintenance
+
+This fork preserves downstream branding and build behavior on branch `v6`.
+Upstream synchronization is review-only because the histories have diverged.
+See [repository maintenance](docs/repository-maintenance.md) before merging an
+upstream change or updating a build workflow.
