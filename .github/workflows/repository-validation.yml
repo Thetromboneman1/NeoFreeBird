@@ -29,6 +29,14 @@ jobs:
           ref: master
           path: theos
           submodules: recursive
+      - name: Install iOS 16.5 SDK
+        env:
+          THEOS: ${{ github.workspace }}/theos
+        run: |
+          git clone -n --depth=1 --filter=tree:0 https://github.com/theos/sdks/ "$RUNNER_TEMP/theos-sdks"
+          git -C "$RUNNER_TEMP/theos-sdks" sparse-checkout set --no-cone iPhoneOS16.5.sdk
+          git -C "$RUNNER_TEMP/theos-sdks" checkout
+          mv "$RUNNER_TEMP/theos-sdks/iPhoneOS16.5.sdk" "$THEOS/sdks/"
       - name: Validate and rebuild downstream package
         env:
           THEOS: ${{ github.workspace }}/theos
