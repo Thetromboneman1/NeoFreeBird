@@ -159,3 +159,20 @@ This fork preserves downstream branding and build behavior on branch `v6`.
 Upstream synchronization is review-only because the histories have diverged.
 See [repository maintenance](docs/repository-maintenance.md) before merging an
 upstream change or updating a build workflow.
+
+<!-- documentation-health:start -->
+
+## Current repository state
+
+![NeoFreeBird system architecture](docs/architecture/neofreebird-system-architecture.png)
+
+- **Default branch:** `v6`
+- **Implementation fingerprint:** `b7026b342caa528c`
+- **Detected structure:** Source modules, Automation modules, Workspace packages, GitHub Actions, Maintained documentation.
+- **Documentation contract:** editable diagram sources, committed PNG renderings,
+  resolved local image links, and generated state are checked on every commit.
+- **Refresh command:** `python3 scripts/documentation_health.py --write`
+
+See [repository state](docs/REPOSITORY_STATE.md) and the
+[architecture asset guide](docs/architecture/README.md).
+<!-- documentation-health:end -->
