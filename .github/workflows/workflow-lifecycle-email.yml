@@ -17,10 +17,16 @@ permissions:
   actions: read
   contents: read
 
+concurrency:
+  group: workflow-lifecycle-email-${{ github.event.workflow_run.id }}-${{ github.event.action }}
+  cancel-in-progress: false
+
 jobs:
   notify:
+    name: Send lifecycle email
     if: github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Send workflow lifecycle email
         uses: Thetromboneman1/github-actions-lifecycle-email@c639809639bbb890f9337b047a7a31dbf911bf8d
