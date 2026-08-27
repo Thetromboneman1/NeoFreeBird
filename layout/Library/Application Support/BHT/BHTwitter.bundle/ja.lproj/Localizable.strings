@@ -181,6 +181,26 @@
 
 "CUSTOM_TAB_BAR_OPTION_TITLE" = "ナビゲーションバーを編集";
 
+"MODERN_SETTINGS_CHAT_TITLE" = "チャットの設定";
+"MODERN_SETTINGS_CHAT_SUBTITLE" = "Xチャットのインターフェースに機能を追加する。";
+
+/*Chat*/
+"HIDE_TYPING_INDICATOR_TITLE" = "「入力中」の表示を非表示";
+"HIDE_TYPING_INDICATOR_DETAIL" = "チャット相手に「入力中」のステータスを送信しないようにします。";
+
+"DOWNLOAD_VOICE_MESSAGES_TITLE" = "ボイスメッセージのダウンロード";
+"DOWNLOAD_VOICE_MESSAGES_DETAIL" = "再生したボイスメッセージを端末に保存します（音声を長押ししてダウンロード）。";
+
+"BLOCK_SCREENSHOT_DETECTION_TITLE" = "スクリーンショット検知のブロック";
+"BLOCK_SCREENSHOT_DETECTION_DETAIL" = "ブロックされることなくシークレットチャットのスクリーンショットを撮影できます。";
+
+/*Dim Theme*/
+"ENABLE_DIM_THEME_TITLE" = "ダークブルーテーマを有効化";
+"ENABLE_DIM_THEME_DETAIL" = "削除されたTwitterのダークブルー（Dim）テーマを復元します。ダークモードの有効化とアプリの再起動が必要です。";
+"DIM_THEME_RESTART_ALERT_TITLE" = "再起動が必要です";
+"DIM_THEME_RESTART_ALERT_MESSAGE" = "ダークブルーテーマを適用するにはアプリの再起動が必要です。";
+"DIM_THEME_RESTART_ALERT_RESTART_BUTTON" = "再起動";
+
 /*Layout*/
 "HIDE_SPACES_TITLE" = "スペースバーを非表示";
 
@@ -209,6 +229,33 @@
 "REGULAR_FONTS_PICKER_OPTION_TITLE" = "フォントを選択";
 
 "BOLD_FONTS_PICKER_OPTION_TITLE" = "太字のフォントを選択";
+
+"HIDE_TWEET_BUTTON_TITLE" = "ツイートボタンを非表示";
+"HIDE_VERIFIED_TWEETS_TITLE" = "認証済みアカウントのツイートを非表示";
+
+"SHOW_POLL_RESULTS_TITLE" = "投票前に結果を表示";
+"SHOW_POLL_RESULTS_DETAIL" = "投票前に選択肢に投票結果を追加し、他ユーザーの投票状況を確認できるようにします。";
+
+"UPLOAD_FULL_HD_VIDEOS_TITLE" = "フルHD動画のアップロード";
+"UPLOAD_FULL_HD_VIDEOS_DETAIL" = "1080pでの動画アップロード機能を有効にします。";
+
+"SHOW_ACCOUNT_LOCATION_TITLE" = "アカウントの場所を表示";
+"SHOW_ACCOUNT_LOCATION_DETAIL" = "ツイートのフッターに、投稿したアカウントの登録地を表示します。";
+
+"SHOW_ACCOUNT_LOCATION_TITLE" = "アカウントの場所を表示";
+"SHOW_ACCOUNT_LOCATION_DETAIL" = "ツイートのフッターに、投稿したアカウントの登録地を表示します。";
+
+"DISABLE_VIDEO_DOCKING_TITLE" = "動画のドッキングを無効化";
+"DISABLE_VIDEO_DOCKING_DETAIL" = "動画をドラッグして画面外へ移動した際、ピクチャーインピクチャーボタンが表示されないようにします。";
+
+"TAP_TO_PAUSE_TITLE" = "タップで動画を一時停止";
+"TAP_TO_PAUSE_DETAIL" = "一時停止ボタンを使用する代わりに、動画をタップするだけで一時停止できるようにします。";
+
+"SHOW_UNROUNDED_COUNTS_TITLE" = "丸められていない数値を表示";
+"SHOW_UNROUNDED_COUNTS_DETAIL" = "フォロワー数、フォロー数、ツイート数を千や百万の単位で丸めず、正確な数値で表示します。";
+
+"BLUE_LAUNCH_SCREEN_TITLE" = "青い起動画面を復元";
+"BLUE_LAUNCH_SCREEN_DETAIL" = "元の青い起動画面に戻します。";
 
 /*Labs*/
 "REPLY_IN_WEBVIEW_TITLE" = "ウェブビューで返信";

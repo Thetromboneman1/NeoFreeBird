@@ -234,6 +234,11 @@ static NSDictionary<NSString*, NSDictionary*>* BHTSettingsPages(void) {
                         @"key": @"download_voice_messages",
                         @"default": @NO,
                         @"type": @"toggle"
+                    },
+                    @{
+                        @"key": @"block_screenshot_detection",
+                        @"default": @NO,
+                        @"type": @"toggle"
                     }
                 ]
             },
@@ -273,6 +278,11 @@ static NSDictionary<NSString*, NSDictionary*>* BHTSettingsPages(void) {
                         @"type": @"toggle"
                     },
                     @{
+                        @"key": @"disable_media_carousel",
+                        @"default": @NO,
+                        @"type": @"toggle"
+                    },
+                    @{
                         @"key": @"disable_sensitive_tweet_warnings",
                         @"default": @YES,
                         @"type": @"toggle"
@@ -280,6 +290,11 @@ static NSDictionary<NSString*, NSDictionary*>* BHTSettingsPages(void) {
                     @{
                         @"key": @"show_poll_results",
                         @"default": @NO,
+                        @"type": @"toggle"
+                    },
+                    @{
+                        @"key": @"show_account_location",
+                        @"default": @YES,
                         @"type": @"toggle"
                     },
                     @{
@@ -372,8 +387,11 @@ static NSDictionary<NSString*, NSDictionary*>* BHTSettingsPages(void) {
                     },
                     @{@"key": @"always_open_safari",
                       @"default": @NO},
+                    // X's new article webview does not work under
+                    // LiveContainer, so default it off there rather than
+                    // forcing the switch on for every guest install.
                     @{@"key": @"new_inapp_webview",
-                      @"default": @YES}
+                      @"default": @(![BHTManager isLiveContainer])}
                 ]
             },
             @"debug": @{

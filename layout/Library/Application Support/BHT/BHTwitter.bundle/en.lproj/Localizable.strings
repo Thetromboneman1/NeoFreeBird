@@ -10,6 +10,9 @@
 
 "CONFIRM_ALERT_MESSAGE" = "Sure you meant to do that?";
 
+"YES_ACTION_LABEL" = "Yes";
+"NO_ACTION_LABEL" = "No";
+
 /*Settings*/
 "MODERN_SETTINGS_LAYOUT_TITLE" = "General";
 "MODERN_SETTINGS_LAYOUT_SUBTITLE" = "Lock the app, keep the navigation bar visible, and more.";
@@ -89,11 +92,17 @@
 "SHOW_POLL_RESULTS_TITLE" = "Show poll results before voting";
 "SHOW_POLL_RESULTS_DETAIL" = "Appends the poll results to option names before you vote, so you can see how others have voted.";
 
+"SHOW_ACCOUNT_LOCATION_TITLE" = "Show account location";
+"SHOW_ACCOUNT_LOCATION_DETAIL" = "Show the location of the account that posted a Tweet in the tweet footer.";
+
 "HIDE_BLUE_VERIFIED_TITLE" = "Hide Blue verified checkmarks";
 "HIDE_BLUE_VERIFIED_DETAIL" = "Hide paid verified checkmark on Tweets. This does not include brand/government accounts.";
 
 "HIDE_VIEW_COUNT_TITLE" = "Hide views";
 "HIDE_VIEW_COUNT_DETAIL" = "Don't show views under Tweets.";
+
+"DISABLE_MEDIA_CAROUSEL_TITLE" = "Disable media carousel";
+"DISABLE_MEDIA_CAROUSEL_DETAIL" = "Reverts the new look for mulitple media attachments.";
 
 "HIDE_BOOKMARK_BUTTON_TITLE" = "Hide bookmarks";
 "HIDE_BOOKMARK_BUTTON_DETAIL" = "Remove the bookmark button from Tweets.";
@@ -133,6 +142,9 @@
 
 "DOWNLOAD_VOICE_MESSAGES_TITLE" = "Download voice messages";
 "DOWNLOAD_VOICE_MESSAGES_DETAIL" = "Save voice messages to your device after playing them (long-press on an audio message to download it).";
+
+"BLOCK_SCREENSHOT_DETECTION_TITLE" = "Block screenshot detection";
+"BLOCK_SCREENSHOT_DETECTION_DETAIL" = "Allows you to screenshot \"secure\" chats without being blocked.";
 
 /*Profiles*/
 "FOLLOW_CONFIRM_TITLE" = "Confirm follows";
@@ -175,7 +187,7 @@
 "RESTORE_VIDEO_TIMESTAMP_DETAIL" = "Shows timestamp on immersive player.";
 
 "TAP_TO_PAUSE_TITLE" = "Tap to pause videos";
-"TAP_TO_PAUSE_DETAIL" = "Tap on a video to pause it, instead of having to use the pause button.";
+"TAP_TO_PAUSE_DETAIL" = "Tap with 2 fingers on a video to pause it, instead of having to use the pause button.";
 
 "DISABLE_IMMERSIVE_SCROLL_TITLE" = "No video feed scrolling";
 
@@ -311,6 +323,8 @@
 "MODERN_SETTINGS_PLACEHOLDER_DETAIL_TEXT" = "This section is coming soon. Stay tuned for more NeoFreeBird features!";
 
 "SOURCE_UNAVAILABLE" = "Source Unavailable";
+
+"LOCATION_UNAVAILABLE" = "Location Unavailable";
 
 "CONTRIBUTOR_PAGE_SECTION_HEADER_TITLE" = "Contributors";
 
