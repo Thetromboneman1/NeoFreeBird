@@ -13,7 +13,15 @@
 @property (nonatomic, strong) NSString* username;
 @property (nonatomic, strong) NSString* displayUsername;
 @property (nonatomic, strong) NSString* fullName;
+@property (nonatomic, readonly) NSInteger userID;
+@property (nonatomic, strong) NSDate* createdDate;
 @property (nonatomic, strong) id scribe;
+@end
+
+@interface TFNTwitterUser : NSObject
+@property (readonly, nonatomic) long long userID;
+@property (readonly, copy, nonatomic) NSString* username;
+@property (readonly, nonatomic) TFSTwitterRelationship* relationship;
 @end
 
 @interface TFNTableView : UITableView
@@ -136,6 +144,10 @@
                              animated:(BOOL)animated;
 @end
 
+@interface TFNTwitterUserDataSource : NSObject
+@property (nonatomic, strong) TFNTwitterAccount* user;
+@end
+
 @interface TFNBarButtonItemButton : UIButton
 @end
 
@@ -149,6 +161,10 @@
 
 @interface TFNSolidColorView : UIView
 @property (nonatomic, strong) UIColor* backgroundColor;
+@end
+
+@interface UIFont (TFNUIFontGroup)
+- (UIFont*)tfn_withMonospacedDigits;
 @end
 
 @interface UIImage (TFNAdditions)

@@ -4,12 +4,27 @@
   # NeoFreeBird-BHTwitter
   <i>The ultimate way to tweak your Twitter/X experience.</i>
 
+  ## Twitter Branding
+
   <div>
     <a href="https://intradeus.github.io/http-protocol-redirector?r=altstore://source?url=https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource.json"><img src="images/badges/add_to_altstore.png" alt="Add to AltStore" height="40"></a>
     &nbsp;
     <a href="https://intradeus.github.io/http-protocol-redirector?r=sidestore://source?url=https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource.json"><img src="images/badges/add_to_sidestore.png" alt="Add to SideStore" height="40"></a>
     &nbsp;
     <a href="https://intradeus.github.io/http-protocol-redirector?r=feather://source/https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource.json"><img src="images/badges/add_to_feather.png" alt="Add to Feather" height="40"></a>
+    &nbsp;
+    <a href="https://github.com/orionblur/NeoFreeBird/releases"><img src="images/badges/download_from_github.png" alt="Download from GitHub" height="40"></a>
+    &nbsp;
+  </div>
+
+  ## X Branding
+
+  <div>
+    <a href="https://intradeus.github.io/http-protocol-redirector?r=altstore://source?url=https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource-X.json"><img src="images/badges/add_to_altstore.png" alt="Add to AltStore" height="40"></a>
+    &nbsp;
+    <a href="https://intradeus.github.io/http-protocol-redirector?r=sidestore://source?url=https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource-X.json"><img src="images/badges/add_to_sidestore.png" alt="Add to SideStore" height="40"></a>
+    &nbsp;
+    <a href="https://intradeus.github.io/http-protocol-redirector?r=feather://source/https://raw.githubusercontent.com/orionblur/NeoFreeBird/refs/heads/v6/AltSource-X.json"><img src="images/badges/add_to_feather.png" alt="Add to Feather" height="40"></a>
     &nbsp;
     <a href="https://github.com/orionblur/NeoFreeBird/releases"><img src="images/badges/download_from_github.png" alt="Download from GitHub" height="40"></a>
     &nbsp;
@@ -39,6 +54,10 @@
 
 # Downloading
 Go to the [Releases](https://github.com/orionblur/NeoFreeBird/releases) page to download the latest version of NeoFreeBird-BHTwitter. You can also build it yourself by following the instructions below.
+
+# Supporting the Project
+
+I welcome all help on NeoFreeBird! Translations, bug fixes, and new features are all welcome. If you do see any issues with the app, feel free to open an issue and follow the templates provided. I also have a Ko-Fi linked in the repo if you wish to support me directly, but by no means is it required! NeoFreeBird will always be open-source and free to use.
 
 # Compiling NeoFreeBird-BHTwitter
 
@@ -134,7 +153,7 @@ Result: `com.bandarhl.bhtwitter_4.2_iphoneos-arm.deb` inside `packages`.
 
 `rebrand.sh` applies name and icon branding to an IPA. This can be done before or after patching with the tweak.
 
-Resource packs work on both macOS and Linux via [scar](https://github.com/theacrat/scar), which is downloaded automatically if it isn't in `PATH` (or set `NFB_SCAR` to a binary). The Pillow package they need is installed automatically into a cached venv on first use. There is a GitHub Actions workflow if you'd rather not run it locally.
+Resource packs work on both macOS and Linux via [scar](https://github.com/theacrat/scar), which rebuilds the app's asset catalogs, and [resvg](https://github.com/linebender/resvg), which rasterizes a pack's `svgs/` glyphs into them. Both are downloaded automatically if they aren't in `PATH` (or set `NFB_SCAR` / `NFB_RESVG` to a binary). The Pillow package they need is installed automatically into a cached venv on first use. There is a GitHub Actions workflow if you'd rather not run it locally.
 
 
 ```bash
