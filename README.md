@@ -185,8 +185,8 @@ upstream change or updating a build workflow.
 
 ![NeoFreeBird system architecture](docs/architecture/neofreebird-system-architecture.png)
 
-- **Default branch:** `v6`
-- **Implementation fingerprint:** `b7026b342caa528c`
+- **Default branch:** `automation/upstream-sync-8ad2de9899dd`
+- **Implementation fingerprint:** `ccd00125281bb7f2`
 - **Detected structure:** Source modules, Automation modules, Workspace packages, GitHub Actions, Maintained documentation.
 - **Documentation contract:** editable diagram sources, committed PNG renderings,
   resolved local image links, and generated state are checked on every commit.
