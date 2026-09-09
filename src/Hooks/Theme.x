@@ -5,6 +5,8 @@
 
 #import "HookHelpers.h"
 #import "Headers/UIHeaders.h"
+#import "Headers/TFNHeaders.h"
+#import <math.h>
 
 // MARK: - Custom accent color
 
@@ -180,6 +182,63 @@ void applySelectedThemeColor(void) {
 
 %end
 
+// X 12.9 sometimes assigns backgroundPrimary (or a literal black color) to a
+// view after the palette has already been resolved. Reused timeline rows and
+// conversation/detail surfaces take this path while scrolling, so the palette
+// proxy and private UIColor resolution hooks above never get another chance to
+// recolor them. Normalize only UIView background assignments, and repeat the
+// normalization when a view enters a window so colors assigned before traits
+// were available are covered as well.
+static UIColor* BHTDimNormalizedViewBackground(UIView* view, UIColor* color) {
+    if (!view || !color || !BHTDimThemeEnabled() ||
+        view.traitCollection.userInterfaceStyle != UIUserInterfaceStyleDark) {
+        return color;
+    }
+
+    UIColor* resolved = [color resolvedColorWithTraitCollection:view.traitCollection];
+    UIColor* replacement = BHTDimReplacementForResolvedColor(resolved);
+    if (replacement) {
+        return replacement;
+    }
+
+    // The UIColor hooks may already have resolved a catalog background to a
+    // Dim shade. Pin that resolved value on the view so later reuse cannot
+    // fall back to the catalog's original pure-black dark variant.
+    CGFloat red = 0, green = 0, blue = 0, alpha = 0;
+    if ([resolved getRed:&red green:&green blue:&blue alpha:&alpha] && alpha >= 0.99) {
+        BOOL isDimShade =
+            (fabs(red - 21.0 / 255.0) < 0.002 && fabs(green - 32.0 / 255.0) < 0.002 &&
+             fabs(blue - 43.0 / 255.0) < 0.002) ||
+            (fabs(red - 25.0 / 255.0) < 0.002 && fabs(green - 39.0 / 255.0) < 0.002 &&
+             fabs(blue - 52.0 / 255.0) < 0.002) ||
+            (fabs(red - 28.0 / 255.0) < 0.002 && fabs(green - 40.0 / 255.0) < 0.002 &&
+             fabs(blue - 54.0 / 255.0) < 0.002);
+        if (isDimShade) {
+            return resolved;
+        }
+    }
+
+    return color;
+}
+
+%hook UIView
+
+- (void)setBackgroundColor:(UIColor*)color {
+    %orig(BHTDimNormalizedViewBackground(self, color));
+}
+
+- (void)didMoveToWindow {
+    %orig;
+    if (self.window && self.backgroundColor) {
+        UIColor* normalized = BHTDimNormalizedViewBackground(self, self.backgroundColor);
+        if (normalized != self.backgroundColor) {
+            self.backgroundColor = normalized;
+        }
+    }
+}
+
+%end
+
 %hook TFNSolidColorView
 
 -(void) didMoveToWindow {
@@ -187,6 +246,134 @@ void applySelectedThemeColor(void) {
     if (BHTDimThemeEnabled()) {
         self.hidden = TRUE;
     }
+}
+
+%end
+
+void BHTApplyDimToVideoControls(UIView* controlsView) {
+    if (!BHTDimThemeEnabled() || !controlsView ||
+        controlsView.traitCollection.userInterfaceStyle != UIUserInterfaceStyleDark) {
+        return;
+    }
+
+    controlsView.superview.backgroundColor = BHTDimElevatedBackgroundColor();
+}
+
+// X 12.9's Explore search pill is a background image owned by UISearchBar's
+// private _UITextFieldImageBackgroundView. It never asks TAEColorPalette for
+// pillDefaultBackgroundColor, so recolor it through UISearchBar's public image
+// API and preserve the native pill geometry with stretchable round caps.
+static UIImage* BHTDimSearchPillImage(void) {
+    static UIImage* image;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        const CGFloat diameter = 44.0;
+        UIGraphicsImageRenderer* renderer =
+            [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(diameter, diameter)];
+        UIImage* base = [renderer imageWithActions:^(UIGraphicsImageRendererContext* context) {
+            [BHTDimSearchPillColor() setFill];
+            [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, diameter, diameter)
+                                        cornerRadius:diameter / 2.0] fill];
+        }];
+        image = [base resizableImageWithCapInsets:UIEdgeInsetsMake(diameter / 2.0,
+                                                                   diameter / 2.0,
+                                                                   diameter / 2.0,
+                                                                   diameter / 2.0)
+                                         resizingMode:UIImageResizingModeStretch];
+    });
+    return image;
+}
+
+static void BHTApplyDimSearchPill(UISearchBar* searchBar) {
+    if (!BHTDimThemeEnabled() ||
+        searchBar.traitCollection.userInterfaceStyle != UIUserInterfaceStyleDark) {
+        return;
+    }
+    [searchBar setSearchFieldBackgroundImage:BHTDimSearchPillImage()
+                                    forState:UIControlStateNormal];
+}
+
+%hook TFNSearchBar
+
+- (void)layoutSubviews {
+    %orig;
+    BHTApplyDimSearchPill((UISearchBar*)self);
+}
+
+- (void)didMoveToWindow {
+    %orig;
+    BHTApplyDimSearchPill((UISearchBar*)self);
+}
+
+%end
+
+static BOOL BHTIsExploreSearchBackgroundView(UIView* view) {
+    Class searchBarClass = objc_getClass("TFNSearchBar");
+    for (UIView* ancestor = view.superview; ancestor; ancestor = ancestor.superview) {
+        if (searchBarClass && [ancestor isKindOfClass:searchBarClass]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+// TFNSearchBar reapplies its stock image after -layoutSubviews, so the public
+// setter above alone does not survive X's final configuration pass. Intercept
+// the concrete UIKit image owner, but only when it belongs to TFNSearchBar.
+%hook _UITextFieldImageBackgroundView
+
+- (void)setImage:(UIImage*)image {
+    if (BHTDimThemeEnabled() && BHTIsExploreSearchBackgroundView((UIView*)self) &&
+        ((UIView*)self).traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        %orig(BHTDimSearchPillImage());
+    } else {
+        %orig(image);
+    }
+}
+
+- (void)didMoveToWindow {
+    %orig;
+    if (((UIView*)self).window && BHTDimThemeEnabled() &&
+        BHTIsExploreSearchBackgroundView((UIView*)self) &&
+        ((UIView*)self).traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        ((UIImageView*)self).image = BHTDimSearchPillImage();
+    }
+}
+
+%end
+
+
+%hook _TtC10TFNUISwift26LegacySegmentedTabBarStyle
+
+- (void)setHighlightBarColor:(UIColor*)color {
+    if (color && [BHTSettings boolForKey:@"tab_bar_theming"]) {
+        %orig(CurrentAccentColor());
+        return;
+    }
+    %orig(color);
+}
+
+%end
+
+%hook _TtC10TFNUISwift25LegacySegmentedTabBarView
+
+- (void)setStyle:(_TtC10TFNUISwift26LegacySegmentedTabBarStyle*)style {
+    if (style && [BHTSettings boolForKey:@"tab_bar_theming"]) {
+        style.highlightBarColor = CurrentAccentColor();
+    }
+    %orig(style);
+}
+
+%end
+
+%hook _TtC10TFNUISwift31LegacySegmentedHighlightBarView
+
+- (void)setBackgroundColor:(UIColor*)color {
+    if (color && [BHTSettings boolForKey:@"tab_bar_theming"]) {
+        %orig(CurrentAccentColor());
+        return;
+    }
+    %orig(color);
 }
 
 %end
@@ -350,10 +537,52 @@ static UIColor* tabItemColor(BOOL selected) {
         if (logoView.image) {
             logoView.image = [logoView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             logoView.tintColor = CurrentAccentColor();
+            BHTMarkAccentTintedIcon(logoView, YES);
         }
     }
 
     return titleView;
+}
+
+%end
+
+// MARK: - iPad sidebar logo theming
+
+static void ApplySidebarIconTheme(UIViewController* sidebar) {
+    Ivar iconViewIvar =
+        class_getInstanceVariable(%c(T1AppSplitSideBarViewController), "_iconView");
+    if (!iconViewIvar) {
+        return;
+    }
+
+    UIImageView* iconView = object_getIvar(sidebar, iconViewIvar);
+    if (![iconView isKindOfClass:[UIImageView class]] || !iconView.image) {
+        return;
+    }
+
+    BOOL wantsAccent = [BHTSettings boolForKey:@"color_twitter_icon_in_top_bar"];
+    UIImageRenderingMode mode = wantsAccent ? UIImageRenderingModeAlwaysTemplate
+                                            : UIImageRenderingModeAlwaysOriginal;
+
+    if (iconView.image.renderingMode != mode) {
+        iconView.image = [iconView.image imageWithRenderingMode:mode];
+    }
+    if (wantsAccent) {
+        iconView.tintColor = CurrentAccentColor();
+    }
+    BHTMarkAccentTintedIcon(iconView, wantsAccent);
+}
+
+%hook T1AppSplitSideBarViewController
+
+- (void)viewDidLoad {
+    %orig;
+    ApplySidebarIconTheme(self);
+}
+
+- (void)viewWillLayoutSubviews {
+    %orig;
+    ApplySidebarIconTheme(self);
 }
 
 %end

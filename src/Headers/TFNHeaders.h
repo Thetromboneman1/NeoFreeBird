@@ -13,7 +13,15 @@
 @property (nonatomic, strong) NSString* username;
 @property (nonatomic, strong) NSString* displayUsername;
 @property (nonatomic, strong) NSString* fullName;
+@property (nonatomic, readonly) NSInteger userID;
+@property (nonatomic, strong) NSDate* createdDate;
 @property (nonatomic, strong) id scribe;
+@end
+
+@interface TFNTwitterUser : NSObject
+@property (readonly, nonatomic) long long userID;
+@property (readonly, copy, nonatomic) NSString* username;
+@property (readonly, nonatomic) TFSTwitterRelationship* relationship;
 @end
 
 @interface TFNTableView : UITableView
@@ -136,6 +144,10 @@
                              animated:(BOOL)animated;
 @end
 
+@interface TFNTwitterUserDataSource : NSObject
+@property (nonatomic, strong) TFNTwitterAccount* user;
+@end
+
 @interface TFNBarButtonItemButton : UIButton
 @end
 
@@ -149,6 +161,10 @@
 
 @interface TFNSolidColorView : UIView
 @property (nonatomic, strong) UIColor* backgroundColor;
+@end
+
+@interface UIFont (TFNUIFontGroup)
+- (UIFont*)tfn_withMonospacedDigits;
 @end
 
 @interface UIImage (TFNAdditions)
@@ -169,4 +185,21 @@
 + (NSArray*)tfn_vectorImageSearchDirectoryURLs;
 + (void)tfn_vectorImageSetOverrideContainerName:(NSString*)arg1;
 + (NSString*)tfn_vectorImageOverrideContainerName;
+@end
+
+
+@interface _TtC10TFNUISwift26LegacySegmentedTabBarStyle : NSObject
+@property (nonatomic, retain) UIColor* highlightBarColor;
+@property (nonatomic) double highlightBarHeight;
+@property (nonatomic) BOOL showsHighlightBar;
+@property (nonatomic, retain) UIColor* selectedTextColor;
+@property (nonatomic, retain) UIColor* deselectedTextColor;
+@end
+
+@interface _TtC10TFNUISwift31LegacySegmentedHighlightBarView : UIView
+@end
+
+@interface _TtC10TFNUISwift25LegacySegmentedTabBarView : UIView
+@property (nonatomic, retain) _TtC10TFNUISwift26LegacySegmentedTabBarStyle* style;
+@property (nonatomic) long long selectedIndex;
 @end

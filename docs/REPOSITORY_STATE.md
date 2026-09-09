@@ -1,13 +1,13 @@
 # Repository State
 
-Updated: 2026-08-27
+Updated: 2026-09-09
 
 This file is generated from the tracked repository tree. It is committed so
 the documentation record advances with implementation changes.
 
 - Repository: `Thetromboneman1/NeoFreeBird`
-- Default branch: `v6`
-- Implementation fingerprint: `b7026b342caa528c`
+- Default branch: `automation/upstream-sync-cf9119c83d78`
+- Implementation fingerprint: `7c50872e0b54e024`
 - Maintained documents: 8
 - Architecture assets: 2
 
