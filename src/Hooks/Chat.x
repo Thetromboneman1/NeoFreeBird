@@ -16,6 +16,10 @@
 #import "HookHelpers.h"
 #import <string.h>
 
+// Forward declaration for the Swift controller causing the compiler error
+@interface _TtC14DMConversation29SecureContainerViewController : UIViewController
+@end
+
 // MARK: - Matching
 
 static BOOL isChatWebSocketURL(NSURL* url) {
@@ -124,4 +128,16 @@ static void nfb_applyChatScreenTint(UIView* view) {
     %orig;
     nfb_applyChatScreenTint(self);
 }
+%end
+
+%hook _TtC14DMConversation29SecureContainerViewController
+- (void)loadView {
+    if (![BHTSettings boolForKey:@"block_screenshot_detection"]) {
+        %orig;
+        return;
+    }
+    
+    %orig;
+}
+
 %end
